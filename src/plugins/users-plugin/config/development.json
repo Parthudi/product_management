@@ -1,0 +1,8 @@
+{
+  "auth":{
+    "private_key":"PFCm1BNlE3OXASsV235O"
+  },
+  "cors_domains": [
+    "localhost"
+  ]
+}
