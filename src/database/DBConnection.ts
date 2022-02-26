@@ -16,7 +16,7 @@ export default class DBConnection {
                 resolve(db);
             }).catch((err) => {
                 // if connection to docker hosted mongodb fails
-                console.log("failed connection to ", `${mongoUrl}/${dbName}`);
+                // console.log("failed connection to ", `${mongoUrl}/${dbName}`);
                 DBConnection.connectToPath(`mongodb://localhost:27017/${dbName}`).then(resolve, reject);
             });
         });

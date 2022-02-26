@@ -1,4 +1,3 @@
-import ProductDataObject from "../ProductDataObjects/ProductDataObjects";
 import Product from "../schema/ProductSchema";
 import moment from "moment";
 import sharp from "sharp";
@@ -42,10 +41,60 @@ export default class UsersOperator {
     });
   }
   
+  
+  static getProductByCategory(data: any): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try{
+        const categoryId = data.categoryId;
+        const products = await Product.find({}).populate("category").select("-image");
+        const productsRelatedToCategory = [];
+        products && products.map((product) => {
+          if(product.category._id.toString() === categoryId){
+            productsRelatedToCategory.push(product);
+          }
+        });
+        resolve({"Product": productsRelatedToCategory});
+      }catch(error) {
+        reject(error);
+      }
+    });
+  }
+  
+  static getProductBySearch(data: any): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try{
+         // create query object to hold search value and category value
+          const query = {};
+
+          // assign search value to query.name
+          if(data.search){                              
+            // regex is used for pattern matching.     // i is for case small and caps both ,case insensitive
+              query["name"] = {$regex: data.search, $options: "i"};
+
+            // assign category value to query.category
+            if(data.category && data.category != "All"){
+                query["category"] = data.category;
+            }
+
+            // find product with query object based on 2 properties
+            // search and category
+            Product.find(query, (error, products) => {
+                if(error) {
+                    return reject(error);
+                }
+                resolve({"Products": products});
+            }).select("-photo");
+        } 
+      }catch(error) {
+        reject(error);
+      }
+    });
+  }
+
   static getAllProduct(): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try{
-        const products = await Product.find().populate("category").select("-image");
+        const products = await Product.find().populate("category");
         resolve({"Products": products});
       }catch(error) {
         reject(error);
@@ -110,5 +159,24 @@ export default class UsersOperator {
       }
     });
   }
+
+  // static GetProductImage(data: any): Promise<any> {
+  //   return new Promise(async (resolve, reject) => {
+  //     try{
+  //       const productDetails = await Product.findById(data.productId).select("image");
+  //       return resolve(productDetails);
+  //     }catch(error) {
+  //       reject(error);
+  //     }
+  //   });
+  // }
+
+//   exports.photo = async(req, res, next)  => {
+//     if(req.product.photo) {
+//         // console.log("photu :" ,req.product.photo);
+//         return res.status(201).send(req.product.photo);
+//     }
+//     next()
+// }
 
 }

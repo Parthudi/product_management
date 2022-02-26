@@ -20,11 +20,11 @@ const upload = multer({
 // Routes
 MAPP.post("/:userId", upload.single("image"), ProductController.CreateProduct);
 MAPP.get("/:productId", ProductController.GetProduct);
+MAPP.get("/related/:categoryId", ProductController.GetProductRelatedToCategory);
+MAPP.get("/by/search", ProductController.GetProductsBySearch);
+
 MAPP.get("/", ProductController.ProductsList);
+MAPP.get("/image/:productId" , ProductController.GetProductImage);
 MAPP.patch("/:productId/:userId", upload.single("image"), ProductController.UpdateProduct);
 MAPP.delete("/:productId/:userId", ProductController.DeleteProduct);
-
-// MAPP.get("/remove/:id", ProductController.details);
-// MAPP.post("/logout/:id", ProductController.LogoutUser);
-
 export default MAPP;

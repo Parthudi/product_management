@@ -4,7 +4,8 @@ const MAPP = express.Router();
 
 // Routes
 MAPP.post("/", CategoryController.CreateCategory);
-// MAPP.get("/", ProductController.ProductsList);
+MAPP.get("/", CategoryController.CategoryList);
+MAPP.delete("/:userId/:categoryId", CategoryController.DeleteCategory);
 // MAPP.get("/read/:id", ProductController.Product);
 // MAPP.get("/remove/:id", ProductController.details);
 

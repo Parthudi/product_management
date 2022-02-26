@@ -31,6 +31,34 @@ export default class RequestValidator {
             result.valid ? resolve(body) : reject({message: `Required fields${result.errors.map((err) => { return ` ${err.argument}`;})}`, code: 400});
         });
     }
+    
+    static GetProductByCategory(body:any) {
+        return new Promise((resolve,reject) => {
+            const schema = {
+                type:"object",
+                properties: {
+                    categoryId: {type: "string"}
+                },
+                required: ["categoryId"]
+            };
+            const result = validator.validate(body,schema);
+            result.valid ? resolve(body) : reject({message: `Required fields${result.errors.map((err) => { return ` ${err.argument}`;})}`, code: 400});
+        });
+    }
+    
+    static ProductSearch(body:any) {
+        return new Promise((resolve,reject) => {
+            const schema = {
+                type:"object",
+                properties: {
+                    search: {type: "string"}
+                },
+                required: ["search"]
+            };
+            const result = validator.validate(body,schema);
+            result.valid ? resolve(body) : reject({message: `Required fields${result.errors.map((err) => { return ` ${err.argument}`;})}`, code: 400});
+        });
+    }
 
     static UpdateAndDeleteProduct(body:any) {
         return new Promise((resolve,reject) => {
