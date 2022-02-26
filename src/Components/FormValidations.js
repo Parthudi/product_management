@@ -63,6 +63,41 @@ export const SigninSchema = (values) => {
   return error;
     };
 
+    export const CreateProductFormValidation = (values) => {
+      let error = {};
+  
+      if(values.name) {
+        if(!values.name){
+          error.name = "Name Is Required";
+        }else if(values.name.length < 2){
+          error.name = "Name To Short"
+        }else if(values.name.length > 25){
+          error.name = "Name To Big"
+        }
+      }
+  
+      if(values.fileStream) {
+        if(!values.fileStream){
+          error.fileStream = "";
+        }
+      }
+      
+      if(values.price){
+        if(!values.price){
+          error.price = "Password Is Required";
+        }
+      }
+  
+      if(values.category){
+        if(!values.category){
+          error.category = "Category Is Required";
+        }
+      }
+      return error;
+  }
+
+  
+
     // if(nameField === "name") {
     //     if(typeof(value) !== string){
     //         return "Please Enter Valid Name";

@@ -12,6 +12,7 @@ import AlertMessage from "./AlertMessage";
 import Stack from '@mui/material/Stack';
 import {RegisterUser} from "./ApiCall";
 import {Form_Validation} from "./FormValidations";
+import { withRouter } from 'react-router-dom';
 import _ from "lodash";
 
 const useStyles = makeStyles(theme =>({
@@ -60,6 +61,8 @@ const Signup = (props) =>  {
                     }, 3000);
                     setShowSuccessAlert(true);
                     setMessage("Registration Successfull");
+                    props.history.push("/signin");
+                    window.location.reload();
                 }           
             })
         }catch(error) {
@@ -137,9 +140,9 @@ const Signup = (props) =>  {
         <Container>
             <Box mt={5}>
             <Card className={classes.fillBackground}  >
-                    {error !== "" && <AlertMessage shouldDisplay={"dontShow"} severity="error" pinCodeInvalid={true} message={error} />}
-                    {showsuccessalert && <AlertMessage shouldDisplay={"dontShow"} severity="success" pinCodeInvalid={false} message={message} />}
-                    {showerroralert && <AlertMessage shouldDisplay={"dontShow"} severity="error" pinCodeInvalid={true} message={message} />}
+                    {error !== "" && <AlertMessage shouldDisplay={"dontShow"} severity="error" invalid={true} message={error} />}
+                    {showsuccessalert && <AlertMessage shouldDisplay={"dontShow"} severity="success" invalid={false} message={message} />}
+                    {showerroralert && <AlertMessage shouldDisplay={"dontShow"} severity="error" invalid={true} message={message} />}
 
                 <h1><b> I dont have an account </b></h1>
                     <span> Sign up with your email & password </span>
@@ -150,4 +153,4 @@ const Signup = (props) =>  {
         )
 }
 
-export default Signup
+export default withRouter(Signup);

@@ -4,7 +4,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
 const useStyles = makeStyles((theme) => ({
-    pinCodeInvalid: {
+    invalid: {
         position: "fixed",
         left: "39rem",
         zIndex: 1,
@@ -52,7 +52,7 @@ const AlertMessage = (props) => {
 
     const AlertMessage = () => {
         return(
-            <div style={{display: props.shouldDisplay === "dontShow" ? "" : "none"}} className={props.pinCodeInvalid ? classes.pinCodeInvalid : classes.valid}>
+            <div style={{display: props.shouldDisplay === "dontShow" ? "" : "none"}} className={props.invalid ? classes.invalid : classes.valid}>
                 <Alert severity={props.severity} >
                     <AlertTitle> {props.message} </AlertTitle>
                 </Alert>

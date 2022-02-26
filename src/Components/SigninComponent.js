@@ -14,6 +14,7 @@ import {userRegistration} from "./LocalStorageItems/User";
 import AlertMessage from './AlertMessage.js';
 import {makeStyles, Card} from "@material-ui/core";
 import {SigninSchema} from "./FormValidations";
+import { withRouter } from 'react-router-dom';
 import _ from "lodash";
 
 
@@ -117,7 +118,6 @@ const SignIn = (props) =>  {
                     </FormControl>
 
                     <Button variant="contained" disabled={email === "" || password === "" || !_.isEmpty(SigninSchema(values))} size="medium" color="primary" onClick={(e) => handleOnSubmit(e)}> SIGN IN </Button>
-                    {/* <Button variant="contained" color="success" googlestyle='true' size="medium" onClick={signInWithGoogle}> Sign in with Google </Button> */}
                 </Stack>
             </form>
         )
@@ -125,11 +125,9 @@ const SignIn = (props) =>  {
 
     return (
         <Card className={classes.fillBackground}>
-        {/* {error !== "" && <AlertMessage shouldDisplay={"dontShow"} severity="error" pinCodeInvalid={true} message={error} />} */}
-           
-            {error !== "" && <AlertMessage shouldDisplay={"dontShow"} severity="error" pinCodeInvalid={true} message={error} />}
-            {showsuccessalert && <AlertMessage shouldDisplay={"dontShow"} severity="success" pinCodeInvalid={false} message={message} />}
-            {showerroralert && <AlertMessage shouldDisplay={"dontShow"} severity="error" pinCodeInvalid={true} message={message} />}
+            {error !== "" && <AlertMessage shouldDisplay={"dontShow"} severity="error" invalid={true} message={error} />}
+            {showsuccessalert && <AlertMessage shouldDisplay={"dontShow"} severity="success" invalid={false} message={message} />}
+            {showerroralert && <AlertMessage shouldDisplay={"dontShow"} severity="error" invalid={true} message={message} />}
 
             <h1><b> I already have an account </b></h1>
             <span> Signin with your email & password </span>
@@ -138,4 +136,4 @@ const SignIn = (props) =>  {
         )       
   }
 
-export default SignIn;
+export default withRouter(SignIn);
