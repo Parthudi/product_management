@@ -72,7 +72,6 @@ export const CreateProductCall = (formData, userId) => {
 
 export const GetProductsRelatedToCategory = (categoryId) => {
     try{
-        console.log(categoryId);
         return fetch(`${API}/product/related/${categoryId}`, {
             method: "GET",  
             headers: {
@@ -127,3 +126,44 @@ export const RemoveCategory = (userId, categoryId) => {
         return {message: error};
     }  
 }
+
+export const RemoveProduct = (userId, productId) => {
+    try{
+        return fetch(`${API}/product/${productId}/${userId}`, {
+            method: "DELETE",  
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then(response => response.json());
+    }catch(error) {               
+        console.log(error);
+        return {message: error};
+    }  
+}
+
+export const GetProductByProductId = (productId) => {
+    try{
+        return fetch(`${API}/product/${productId}`, {
+            method: "GET",  
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then(response => response.json());
+    }catch(error) {               
+        console.log(error);
+        return {message: error};
+    }  
+}
+
+export const UpdateProduct = (userId, productId, formData) => {
+    try{
+        return fetch(`${API}/product/${productId}/${userId}`, {
+            method: "PATCH",  
+            body: formData
+        }).then(response => response.json());
+    }catch(error) {               
+        console.log(error);
+        return {message: error};
+    }  
+}
+

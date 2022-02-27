@@ -16,7 +16,6 @@ const CreateCategoryForm = (props) => {
     const [showsuccessalert, setShowSuccessAlert] = useState(false);
     const [showerroralert, setShowErrorAlert] = useState(false);
     const [message, setMessage] = useState("");
-    const [name, setName] = useState("");
 
     const user = getUser();
 
@@ -68,19 +67,19 @@ const CreateCategoryForm = (props) => {
                 {props.categories && props.categories.map((category,i) => {
                     return(
                         <div key={i}>
-                        <Accordion>
-                            <AccordionSummary
-                                   expandIcon={<ExpandMoreIcon />}
-                                   aria-controls="panel1a-content"
-                                   id="panel1a-header" >
-                                    <Typography> {category.name.toUpperCase()} </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Typography>
-                                    <Button color="secondary" size="large" startIcon={<DeleteIcon />} fullWidth onClick={(e) => handleOnSubmit(e, i)}> Delete {category.name} Category</Button>
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
+                            <Accordion>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1a-content"
+                                    id="panel1a-header" >
+                                        <Typography> {category.name.toUpperCase()} </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Typography>
+                                        <Button color="secondary" size="large" startIcon={<DeleteIcon />} fullWidth onClick={(e) => handleOnSubmit(e, i)}> Delete {category.name} Category</Button>
+                                    </Typography>
+                                </AccordionDetails>
+                            </Accordion>
                         </div>
                     )
                 })}

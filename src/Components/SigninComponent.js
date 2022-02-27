@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button} from "@material-ui/core";
+import {Button, Typography} from "@material-ui/core";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
@@ -16,7 +16,7 @@ import {makeStyles, Card} from "@material-ui/core";
 import {SigninSchema} from "./FormValidations";
 import { withRouter } from 'react-router-dom';
 import _ from "lodash";
-
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(theme =>({
     fillBackground: {
@@ -118,6 +118,9 @@ const SignIn = (props) =>  {
                     </FormControl>
 
                     <Button variant="contained" disabled={email === "" || password === "" || !_.isEmpty(SigninSchema(values))} size="medium" color="primary" onClick={(e) => handleOnSubmit(e)}> SIGN IN </Button>
+                    <Typography>
+                        I don't have an account <Link to="/signup"> <b>Sign Up</b> </Link>
+                    </Typography>
                 </Stack>
             </form>
         )

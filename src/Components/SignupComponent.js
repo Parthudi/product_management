@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import InputField from "./InputFields";
-import {Button,Box,Card,makeStyles,Container} from "@material-ui/core";
+import {Button,Box,Card,makeStyles,Container, Typography} from "@material-ui/core";
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -14,6 +14,7 @@ import {RegisterUser} from "./ApiCall";
 import {Form_Validation} from "./FormValidations";
 import { withRouter } from 'react-router-dom';
 import _ from "lodash";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(theme =>({
     fillBackground: {
@@ -132,6 +133,9 @@ const Signup = (props) =>  {
                     </FormControl>
 
                     <Button type="submit" variant="contained" color="secondary" disabled={email === "" || password === "" || username ==="" || !_.isEmpty(Form_Validation(values))} onClick={(e) => handleOnSubmit(e)} fullWidth> <b> Sign Up </b> </Button>
+                    <Typography>
+                        I do have an account <Link to="/signin"> <b>Sign In</b> </Link>
+                    </Typography>
                 </Stack>
             </form>
         )}
