@@ -4,7 +4,7 @@ import sharp from "sharp";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 
-export default class UsersOperator {
+export default class ProductOperator {
 
   static createProduct(req: any): Promise<any> {
     return new Promise(async (resolve, reject) => {
@@ -31,9 +31,9 @@ export default class UsersOperator {
   static getProduct(data: any): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try{
-        const userId = data.productId;
-        const product = await Product.findById(userId).populate("category");
-        product["image"] = undefined;  // as due to this there will be huge suffs in postman api
+        const productId = data.productId;
+        const product = await Product.findById(productId).populate("category");
+        // product["image"] = undefined;  // as due to this there will be huge suffs in postman api
         resolve({"Product": product});
       }catch(error) {
         reject(error);
@@ -124,7 +124,7 @@ export default class UsersOperator {
             const maxRange = productOriginalPrice + percentValue;
             const minRange = productOriginalPrice - percentValue;
 
-            if(minRange > data.price || data.price < maxRange){
+            if(minRange > data.price && data.price < maxRange){
               reject({message: "Price Cannot Be Exceed Beyond 10%, For More Details Contact Customer Care", code: 404});
             }
           }
@@ -132,7 +132,7 @@ export default class UsersOperator {
               ...productData, "modified_at": new Date().toISOString()
           });
           await product.save();
-          resolve("Producted Updated Successful");
+          resolve({"product": "Producted Updated Successful"});
         }else{
           reject({message:`Only Product Creator Can Update This Product`, code: 404});
         }
@@ -150,7 +150,7 @@ export default class UsersOperator {
         if(productDetails.owner.toString() === data.userId) {
           console.log("SAME USER SO CAN UPDATE");
           await Product.find({ _id: data.productId }).remove();
-          resolve("Producted Deleted Successful");
+          resolve({product: "Producted Deleted Successful"});
         }else{
           reject({message:`Only Product Creator Can Delete This Product`, code: 404});
         }

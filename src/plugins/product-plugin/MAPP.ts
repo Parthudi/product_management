@@ -20,6 +20,7 @@ const upload = multer({
 // Routes
 MAPP.post("/:userId", upload.single("image"), ProductController.CreateProduct);
 MAPP.get("/:productId", ProductController.GetProduct);
+// MAPP.get("/:productId", ProductController.GetProductsByUserId);
 MAPP.get("/related/:categoryId", ProductController.GetProductRelatedToCategory);
 MAPP.get("/by/search", ProductController.GetProductsBySearch);
 
